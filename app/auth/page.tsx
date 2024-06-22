@@ -3,8 +3,16 @@
 
 import Input from "../../components/Input";
 import { useCallback, useState } from "react";
+import axios from 'axios';
+import { signIn } from 'next-auth/react';
+import { useRouter } from "next/navigation";
+// import { setCookie } from 'nookies';
+import { FcGoogle } from "react-icons/fc";
+import { FaGithub } from "react-icons/fa";
 
 const Auth = () => {
+    const router = useRouter();
+
     const [email, setEmail] = useState('')
     const [name, setName] = useState('')
     const [password, setPassword] = useState('')
@@ -21,6 +29,47 @@ const Auth = () => {
     };
 
 
+    const login = useCallback(async () => {
+        try {
+            await signIn('credentials', {
+                email,
+                password,
+                redirect: false,
+                callbackUrl: '/',
+
+            });
+
+            router.push('/')
+            // if (rememberMe) {
+            //     // Set a cookie to remember the user
+            //     setCookie(null, 'rememberMe', 'true', {
+            //         maxAge: 30 * 24 * 60 * 60, // 30 days
+            //         path: '/',
+            //     });
+            // } else {
+            //     // Remove the cookie if not remembering
+            //     setCookie(null, 'rememberMe', 'false', {
+            //         maxAge: -1,
+            //         path: '/',
+            //     });
+            // }
+        } catch (error) {
+            console.log(error);
+        }
+    }, [email, password, router]);
+
+
+    const register = useCallback(async () => {
+        try {
+            await axios.post('../api/register', { name, email, password });
+            login();
+        } catch (error) {
+            console.log(error)
+        }
+    }, [name, email, password, login]);
+
+
+
     return (
         <div className="relative h-full w-full bg-[url('/images/wallpaper.jpg')] bg-center bg-no-repeat bg-fixed bg-cover">
             <div className="bg-black h-full w-full bg-opacity-40">
@@ -34,12 +83,20 @@ const Auth = () => {
                             <div className="flex flex-col gap-5">
                                 {variant === 'register' && (<Input id="name" label="Username" value={name} onChange={(ev: any) => setName(ev.target.value)} type="" />)}
                                 <Input id="email" label="Email or mobile number" value={email} onChange={(ev: any) => setEmail(ev.target.value)} type="email" />
-                                <Input id="password" label="Password" value={password} onChange={(ev: any) => setPassword(ev.target.value)} type="email" />
+                                <Input id="password" label="Password" value={password} onChange={(ev: any) => setPassword(ev.target.value)} type="password" />
 
                             </div>
-                            <button className="bg-custom-red w-full py-3 text-white font-semibold rounded-md mt-10 hover:bg-red-700 transition">
+                            <button onClick={variant === 'login' ? login : register} className="bg-custom-red w-full py-3 text-white font-semibold rounded-md mt-10 hover:bg-red-700 transition">
                                 {variant === 'login' ? 'Sign In' : 'Get Started'}
                             </button>
+                            <div className="flex flex-row items-center gap-4 mt-8 justify-center">
+                                <div onClick={() => signIn('google', { callbackUrl: '/', })} className=" w-14 h-14 rounded-full bg-white flex items-center justify-center cursor-pointer hover:opacity-80 transition" >
+                                    <FcGoogle size={38} />
+                                </div>
+                                <div onClick={() => signIn('github', { callbackUrl: '/', })} className=" w-14 h-14 rounded-full bg-white flex items-center justify-center cursor-pointer hover:opacity-80 transition" >
+                                    <FaGithub size={38} />
+                                </div>
+                            </div>
                             <div className="flex items-center mt-12 text-white">
                                 {variant === 'login' && (
                                     <div>
@@ -67,5 +124,6 @@ const Auth = () => {
         </div>
     );
 }
+
 
 export default Auth;
