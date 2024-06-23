@@ -1,39 +1,3 @@
-// import bcrypt from 'bcrypt';
-// import prismadb from '../../../lib/prismadb';
-// import { NextApiRequest, NextApiResponse } from 'next';
-
-// export default async function handler(req: NextApiRequest, res: NextApiResponse) {
-//     if (req.method !== 'POST') {
-//         return res.status(405).end(); // method not supported for this request
-//     }
-
-//     try {
-//         const { name, email, password } = req.body;
-//         const existingUser = await prismadb.user.findUnique({ where: { email: email } }) // check if email is already in use
-
-//         if (existingUser) {
-//             return res.status(422).json({ error: 'Email is already in use.' }); // server cannot process this request
-//         }
-
-//         const hashedPassword = await bcrypt.hash(password, 12);
-//         const user = await prismadb.user.create({
-//             data: {
-//                 email, // equivalent to email:email etc
-//                 name,
-//                 hashedPassword,
-//                 image: '',
-//                 emailVerified: new Date(),
-//             }
-//         });
-
-//         return res.status(200).json(user);
-//     } catch (error) {
-//         console.log(error)
-//         return res.status(400).end()
-//     }
-// }
-
-
 import bcrypt from 'bcrypt';
 import prismadb from '../../../lib/prismadb';
 

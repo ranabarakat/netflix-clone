@@ -89,13 +89,26 @@ const Auth = () => {
                             <button onClick={variant === 'login' ? login : register} className="bg-custom-red w-full py-3 text-white font-semibold rounded-md mt-10 hover:bg-red-700 transition">
                                 {variant === 'login' ? 'Sign In' : 'Get Started'}
                             </button>
-                            <div className="flex flex-row items-center gap-4 mt-8 justify-center">
-                                <div onClick={() => signIn('google', { callbackUrl: '/profiles', })} className=" w-14 h-14 rounded-full bg-white flex items-center justify-center cursor-pointer hover:opacity-80 transition" >
+
+                            <div className="flex items-center mt-5 justify-center text-center text-neutral-400 text-md font-medium">
+                                <hr className="bg-neutral-500 border-0 h-px w-40 flex-grow mr-3" />
+                                <span className="mx-1">OR</span>
+                                <hr className="bg-neutral-500 border-0 h-px w-40 flex-grow ml-3" />
+                            </div>
+
+                            <div className="flex flex-col items-center gap-4 mt-5 justify-center">
+                                <div onClick={() => signIn('google', { callbackUrl: '/profiles', })} className=" w-full h-12 rounded-md bg-white flex items-center justify-center cursor-pointer hover:opacity-80 transition" >
                                     <FcGoogle size={38} />
+                                    <p className="font-normal ml-5"> Sign in with Google</p>
                                 </div>
-                                <div onClick={() => signIn('github', { callbackUrl: '/profiles', })} className=" w-14 h-14 rounded-full bg-white flex items-center justify-center cursor-pointer hover:opacity-80 transition" >
+                                <div onClick={() => signIn('github', { callbackUrl: '/profiles', })} className=" w-full h-12 rounded-md bg-white flex items-center justify-center cursor-pointer hover:opacity-80 transition" >
                                     <FaGithub size={38} />
+                                    <p className="font-normal ml-5"> Sign in with Github</p>
                                 </div>
+
+                                {/* <div onClick={() => signIn('github', { callbackUrl: '/profiles', })} className=" w-14 h-14 rounded-full bg-white flex items-center justify-center cursor-pointer hover:opacity-80 transition" >
+                                    <FaGithub size={38} />
+                                </div> */}
                             </div>
                             <div className="flex items-center mt-12 text-white">
                                 {variant === 'login' && (

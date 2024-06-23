@@ -48,8 +48,8 @@ const Navbar = () => {
                 <img className="h-4 lg:h-7" src="/images/logo2.png" />
                 <div className="flex-row ml-8 gap-7 hidden lg:flex">
                     <NavbarItem label="Home" />
-                    <NavbarItem label="Series" />
-                    <NavbarItem label="Films" />
+                    <NavbarItem label="TV Shows" />
+                    <NavbarItem label="Movies" />
                     <NavbarItem label="New & Popular" />
                     <NavbarItem label="My List" />
                     <NavbarItem label="Browse by Languages" />
@@ -67,7 +67,7 @@ const Navbar = () => {
                         <BsBell />
                     </div>
                     <div onClick={toggleAccountMenu} className="flex flex-row items-center cursor-pointer gap-2 relative">
-                        <div className="w-6 h-6 lg:w-10 lg:h-10 rounded-sm overflow-hidden">
+                        <div className="w-6 h-6 lg:w-10 lg:h-10 rounded-md overflow-hidden">
                             <img src="/images/default-blue.jpg" />
                         </div>
                         <BsChevronDown className={`text-white transition hover:text-gray-200 ${showAccountMenu ? 'rotate-180' : 'rotate-0'}`} />
