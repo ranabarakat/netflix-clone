@@ -10,6 +10,16 @@ module.exports = {
       colors: {
         'custom-red': '#E50914',
       },
+      boxShadow: {
+        'innerColor': '0 0 0px 1000px #000435 inset',
+      },
+      borderWidth: {
+        '1': '1px',
+      },
+      borderColor: {
+        'color': '#fff'
+      }
+
     },
   },
   plugins: [],

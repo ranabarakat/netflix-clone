@@ -32,7 +32,12 @@ const Input: React.FC<InputProps> = ({ id, onChange, value, label, type }) => {
                 focus:ring-0
                 peer
                 opacity-75
+                text-input
+                autofill:border-1
+                autofill:border-color
+
                 "
+
                 placeholder=" "
             />
             <label className="
@@ -52,6 +57,8 @@ const Input: React.FC<InputProps> = ({ id, onChange, value, label, type }) => {
                 peer-placeholder-shown:translate-y-0
                 peer-focus:scale-75
                 peer-focus:-translate-y-3
+                autofill: text-neutral-300
+
 
                 "
                 htmlFor={id}>

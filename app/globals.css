@@ -15,3 +15,17 @@ body {
 html {
   @apply h-full;
 }
+
+@layer components {
+
+  .autofill-text:-webkit-autofill {
+    -webkit-text-fill-color: white;
+  }
+
+  .text-input {
+    /* set text colour (white) */
+    @apply autofill-text;
+    /* set 'background' colour (navy)*/
+    @apply autofill:shadow-[inset_0_0_0px_1000px_#000435];
+  }
+}

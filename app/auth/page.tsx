@@ -39,7 +39,7 @@ const Auth = () => {
 
             });
 
-            router.push('/')
+            router.push('/profiles')
             // if (rememberMe) {
             //     // Set a cookie to remember the user
             //     setCookie(null, 'rememberMe', 'true', {
@@ -90,10 +90,10 @@ const Auth = () => {
                                 {variant === 'login' ? 'Sign In' : 'Get Started'}
                             </button>
                             <div className="flex flex-row items-center gap-4 mt-8 justify-center">
-                                <div onClick={() => signIn('google', { callbackUrl: '/', })} className=" w-14 h-14 rounded-full bg-white flex items-center justify-center cursor-pointer hover:opacity-80 transition" >
+                                <div onClick={() => signIn('google', { callbackUrl: '/profiles', })} className=" w-14 h-14 rounded-full bg-white flex items-center justify-center cursor-pointer hover:opacity-80 transition" >
                                     <FcGoogle size={38} />
                                 </div>
-                                <div onClick={() => signIn('github', { callbackUrl: '/', })} className=" w-14 h-14 rounded-full bg-white flex items-center justify-center cursor-pointer hover:opacity-80 transition" >
+                                <div onClick={() => signIn('github', { callbackUrl: '/profiles', })} className=" w-14 h-14 rounded-full bg-white flex items-center justify-center cursor-pointer hover:opacity-80 transition" >
                                     <FaGithub size={38} />
                                 </div>
                             </div>
