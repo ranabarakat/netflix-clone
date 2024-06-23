@@ -6,6 +6,7 @@ import { NextPageContext } from 'next';
 import { useSession, signOut } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import { useEffect } from 'react';
+import Navbar from '@/components/Navbar';
 
 // export async function getServerSideProps(context: NextPageContext) {
 //   const session = await getSession(context);
@@ -44,9 +45,7 @@ export default function Home() {
 
   return (
     <>
-      <h1 className='text-white'> HI </h1>
-      <p className="text-white">Logged in as: {user?.email}</p>
-      <button className="h-10 w-full bg-white " onClick={() => signOut()}>Sign Out</button>
+      <Navbar />
     </>
   );
 }
