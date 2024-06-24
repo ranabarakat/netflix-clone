@@ -1,6 +1,6 @@
 import { getServerSession } from "next-auth";
 // import { authOptions } from "../app/api/auth/[...nextauth]/route";
-import authOptions from "./authOptions";
+import { authOptions } from "./authOptions";
 
 import prismadb from './prismadb';
 import { NextRequest } from 'next/server';
