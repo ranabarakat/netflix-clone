@@ -1,10 +1,10 @@
 import React, { useCallback } from 'react';
 import { useRouter } from 'next/navigation';
-// import { ChevronDownIcon } from '@heroicons/react/24/outline';
+import { BiChevronDown } from 'react-icons/bi';
 import { BsFillPlayFill } from 'react-icons/bs';
 // import { MovieInterface } from '@/types';
 import FavoriteButton from './FavoriteButton';
-// import useInfoModalStore from '@/hooks/useInfoModalStore';
+import useInfoModal from '@/hooks/useInfoModal';
 
 interface MovieCardProps {
     data: Record<string, any>;
@@ -12,7 +12,7 @@ interface MovieCardProps {
 
 const MovieCard: React.FC<MovieCardProps> = ({ data }) => {
     const router = useRouter();
-    // const { openModal } = useInfoModalStore();
+    const { openModal } = useInfoModal();
 
     // const redirectToWatch = useCallback(() => router.push(`/watch/${data.id}`), [router, data.id]);
 
@@ -74,9 +74,9 @@ const MovieCard: React.FC<MovieCardProps> = ({ data }) => {
                             <BsFillPlayFill className="text-black ml-1" size={30} />
                         </div>
                         <FavoriteButton movieId={data?.id} />
-                        {/* <div onClick={() => openModal(data?.id)} className="cursor-pointer ml-auto group/item w-6 h-6 lg:w-10 lg:h-10 border-white border-2 rounded-full flex justify-center items-center transition hover:border-neutral-300">  */}
-                        {/* <ChevronDownIcon className="text-white group-hover/item:text-neutral-300 w-4 lg:w-6" /> */}
-                        {/* </div>  */}
+                        <div onClick={() => openModal(data?.id)} className="cursor-pointer ml-auto group/item w-6 h-6 lg:w-10 lg:h-10 border-white border-2 rounded-full flex justify-center items-center transition hover:border-neutral-300">
+                            <BiChevronDown size={30} className="text-white group-hover/item:text-neutral-300" />
+                        </div>
                     </div>
                     <div className="flex flex-row mt-4 gap-2 items-center">
                         <p className="text-white text-[10px] lg:text-xl font-bold">{data.title}</p>
