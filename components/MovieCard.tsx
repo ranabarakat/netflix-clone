@@ -1,5 +1,5 @@
 import React, { useCallback } from 'react';
-import { useRouter } from 'next/router';
+import { useRouter } from 'next/navigation';
 // import { ChevronDownIcon } from '@heroicons/react/24/outline';
 import { BsFillPlayFill } from 'react-icons/bs';
 // import { MovieInterface } from '@/types';
@@ -11,7 +11,7 @@ interface MovieCardProps {
 }
 
 const MovieCard: React.FC<MovieCardProps> = ({ data }) => {
-    // const router = useRouter();
+    const router = useRouter();
     // const { openModal } = useInfoModalStore();
 
     // const redirectToWatch = useCallback(() => router.push(`/watch/${data.id}`), [router, data.id]);
@@ -70,7 +70,7 @@ const MovieCard: React.FC<MovieCardProps> = ({ data }) => {
           rounded-b-md
           ">
                     <div className="flex flex-row items-center gap-3">
-                        <div onClick={() => { }} className="cursor-pointer w-6 h-6 lg:w-10 lg:h-10 bg-white rounded-full flex justify-center items-center transition hover:bg-neutral-300">
+                        <div onClick={() => router.push(`/watch/${data?.id}`)} className="cursor-pointer w-6 h-6 lg:w-10 lg:h-10 bg-white rounded-full flex justify-center items-center transition hover:bg-neutral-300">
                             <BsFillPlayFill className="text-black ml-1" size={30} />
                         </div>
                         <FavoriteButton movieId={data?.id} />
