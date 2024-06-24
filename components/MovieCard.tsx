@@ -1,13 +1,20 @@
 import React, { useCallback } from 'react';
+import { useRouter } from 'next/router';
+// import { ChevronDownIcon } from '@heroicons/react/24/outline';
 import { BsFillPlayFill } from 'react-icons/bs';
-
+// import { MovieInterface } from '@/types';
+import FavoriteButton from './FavoriteButton';
+// import useInfoModalStore from '@/hooks/useInfoModalStore';
 
 interface MovieCardProps {
     data: Record<string, any>;
 }
 
 const MovieCard: React.FC<MovieCardProps> = ({ data }) => {
+    // const router = useRouter();
+    // const { openModal } = useInfoModalStore();
 
+    // const redirectToWatch = useCallback(() => router.push(`/watch/${data.id}`), [router, data.id]);
 
     return (
         <div className="group bg-zinc-900 col-span relative h-[12vw]">
@@ -66,17 +73,21 @@ const MovieCard: React.FC<MovieCardProps> = ({ data }) => {
                         <div onClick={() => { }} className="cursor-pointer w-6 h-6 lg:w-10 lg:h-10 bg-white rounded-full flex justify-center items-center transition hover:bg-neutral-300">
                             <BsFillPlayFill className="text-black ml-1" size={30} />
                         </div>
-
+                        <FavoriteButton movieId={data?.id} />
+                        {/* <div onClick={() => openModal(data?.id)} className="cursor-pointer ml-auto group/item w-6 h-6 lg:w-10 lg:h-10 border-white border-2 rounded-full flex justify-center items-center transition hover:border-neutral-300">  */}
+                        {/* <ChevronDownIcon className="text-white group-hover/item:text-neutral-300 w-4 lg:w-6" /> */}
+                        {/* </div>  */}
+                    </div>
+                    <div className="flex flex-row mt-4 gap-2 items-center">
+                        <p className="text-white text-[10px] lg:text-xl font-bold">{data.title}</p>
                     </div>
                     <p className="text-green-400 font-semibold mt-4">
                         New <span className="text-white">2024</span>
                     </p>
                     <div className="flex flex-row mt-4 gap-2 items-center">
-                        <p className="text-white text-[10px] lg:text-sm">{data.duration}</p>
+                        <p className="text-white text-[10px] lg:text-sm">{data.duration} - {data.genre}</p>
                     </div>
-                    <div className="flex flex-row items-center gap-2 mt-4 text-[8px] text-white lg:text-sm">
-                        <p>{data.genre}</p>
-                    </div>
+
                 </div>
             </div>
         </div>

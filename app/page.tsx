@@ -10,6 +10,8 @@ import Navbar from '@/components/Navbar';
 import Billboard from '@/components/Billboard';
 import MovieList from '@/components/MovieList';
 import useMovieList from '@/hooks/useMovieList';
+import useFavorites from '@/hooks/useFavorites';
+
 
 
 
@@ -19,6 +21,8 @@ export default function Home() {
   const { data: session, status } = useSession();
   const router = useRouter();
   const { data: movies = [] } = useMovieList();
+  const { data: favorites = [] } = useFavorites();
+
 
 
   useEffect(() => {
@@ -44,6 +48,8 @@ export default function Home() {
       <Billboard />
       <div className='pb-40'>
         <MovieList data={movies} title="Trending Now" />
+        <MovieList data={favorites} title="My List" />
+
       </div>
     </>
   );
