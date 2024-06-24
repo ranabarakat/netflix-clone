@@ -1,14 +1,13 @@
-import NextAuth, { NextAuthOptions } from "next-auth";
-import CredentialsProvider from "next-auth/providers/credentials";
-import prismadb from "../../../../lib/prismadb";
-import { compare } from "bcrypt";
-import { NextApiRequest, NextApiResponse } from "next";
+import NextAuth from 'next-auth';
 import GithubProvider from 'next-auth/providers/github';
 import GoogleProvider from 'next-auth/providers/google';
-import { PrismaAdapter } from "@next-auth/prisma-adapter";
-// import { parseCookies } from 'nookies';
+import CredentialsProvider from 'next-auth/providers/credentials';
+import { PrismaAdapter } from '@next-auth/prisma-adapter';
+import prismadb from '../../../../lib/prismadb';
+import { compare } from 'bcrypt';
+import { NextAuthOptions } from 'next-auth';
 
-
+// Define your auth options as before
 export const authOptions: NextAuthOptions = {
     providers: [
         GithubProvider({
@@ -24,7 +23,7 @@ export const authOptions: NextAuthOptions = {
             name: 'Credentials',
             credentials: {
                 email: { label: 'Email', type: 'text' },
-                password: { label: 'Password', type: 'password' }
+                password: { label: 'Password', type: 'password' },
             },
             async authorize(credentials) {
                 if (!credentials?.email || !credentials?.password) {
@@ -32,21 +31,24 @@ export const authOptions: NextAuthOptions = {
                 }
 
                 const user = await prismadb.user.findUnique({
-                    where: { email: credentials.email }
+                    where: { email: credentials.email },
                 });
 
                 if (!user || !user.hashedPassword) {
                     throw new Error('Email does not exist!');
                 }
 
-                const isCorrectPassword = await compare(credentials.password, user.hashedPassword);
+                const isCorrectPassword = await compare(
+                    credentials.password,
+                    user.hashedPassword
+                );
 
                 if (!isCorrectPassword) {
                     throw new Error('Incorrect password!');
                 }
                 return user;
-            }
-        })
+            },
+        }),
     ],
     pages: {
         signIn: '/auth',
@@ -54,34 +56,15 @@ export const authOptions: NextAuthOptions = {
     debug: process.env.NODE_ENV === 'development',
     adapter: PrismaAdapter(prismadb),
     session: {
-        strategy: "jwt",
-        // maxAge: 30 * 24 * 60 * 60, // Default to 30 days
+        strategy: 'jwt',
     },
-    // callbacks: {
-    //     async session({ session, token }) {
-    //         const cookies = parseCookies();
-    //         if (cookies.rememberMe === 'true') {
-    //             session.maxAge = 30 * 24 * 60 * 60; // Extend session to 30 days if 'Remember Me' is checked
-    //         } else {
-    //             session.maxAge = 24 * 60 * 60; // Default session to 24 hours
-    //         }
-    //         return session;
-    //     }
-    // },
     jwt: {
         secret: process.env.NEXTAUTH_JWT_SECRET,
     },
     secret: process.env.NEXTAUTH_SECRET,
-
 };
 
-// Define the handler function with proper types
-const authHandler = async (req: NextApiRequest, res: NextApiResponse) => {
-    return await NextAuth(req, res, authOptions);
-};
+// Directly use NextAuth with your authOptions in the export
+const handler = NextAuth(authOptions);
 
-// Define the POST handler
-export const POST = authHandler;
-
-// Define the GET handler for other NextAuth.js routes
-export const GET = authHandler;
+export { handler as GET, handler as POST };
